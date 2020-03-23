@@ -1,0 +1,23 @@
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+df = pd.read_csv('corona.csv') 
+#print(df.shape)
+df_updated= df[df.columns[4:62]]
+count=0
+s=0
+for i in df_updated.columns:
+    for j in df_updated[i]:
+        if(j==0): 
+            count+=1;
+        #print(j);
+    s=df_updated[i].sum(axis = 0);
+    print(s);
+    print(count);
+    if(count>= int(0.7*s)):
+        df_updated.drop(df_updated[i], inplace=True)
+    else:
+        print("Condition not satisifed");
+    print("\n");
+    count=0; 
